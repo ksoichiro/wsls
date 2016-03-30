@@ -32,6 +32,13 @@ S subversion-project
 - other-project
 ```
 
+## TODO
+
+- [ ] Get working copy status (dirty or not)
+- [ ] Last update
+- [ ] Get remote URL (Mainly git)
+- [ ] Main language (Possible?)
+
 ## License
 
 MIT &copy; Soichiro Kashima

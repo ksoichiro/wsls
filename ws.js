@@ -21,10 +21,6 @@ module.exports = class Ws {
   }
 
   inspect(filename) {
-    // TODO Get working copy status (dirty or not)
-    // TODO Main language (Possible?)
-    // TODO Last update
-    // TODO Get remote URL (Mainly git)
     return new Project(path.join(this.cwd, filename));
   }
 };
