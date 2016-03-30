@@ -5,6 +5,7 @@ var path = require('path');
 var chalk = require('chalk');
 var moment = require('moment');
 var gitConfig = require('git-config');
+var ini = require('ini');
 
 const REPO_TYPE_GIT = 'git';
 const REPO_TYPE_HG = 'hg';
@@ -21,7 +22,7 @@ module.exports = class Project {
   }
 
   summary() {
-    return `${this.getRepoSymbol()} ${`${this.remote}         `.substring(0, 9)} ${`${this.updatedAt}             `.substring(0, 13)} ${path.basename(this.filepath)}`;
+    return `${this.getRepoSymbol()} ${`${this.remote}          `.substring(0, 10)} ${`${this.updatedAt}             `.substring(0, 13)} ${path.basename(this.filepath)}`;
   }
 
   getRepoSymbol() {
@@ -67,12 +68,26 @@ module.exports = class Project {
       var config = gitConfig.sync(path.join(this.filepath, '.git/config'));
       var origin = config['remote "origin"'];
       if (origin) {
-        if (-1 < origin.url.indexOf('github.com')) {
-          this.remote = 'GitHub';
-        } else if (-1 < origin.url.indexOf('bitbucket.org')) {
-          this.remote = 'Bitbucket';
-        }
+        this.remote = this.getRemote(origin.url);
       }
+    } else if (this.repoType === REPO_TYPE_HG) {
+      var config = ini.parse(fs.readFileSync(path.join(this.filepath, '.hg/hgrc'), 'utf-8'));
+      var defaultUrl = config.paths['default'];
+      if (defaultUrl) {
+        this.remote = this.getRemote(defaultUrl);
+      }
+    }
+  }
+
+  getRemote(url) {
+    if (-1 < url.indexOf('github.com')) {
+      return 'GitHub';
+    } else if (-1 < url.indexOf('bitbucket.org')) {
+      return 'Bitbucket';
+    } else if (-1 < url.indexOf('code.google.com')) {
+      return 'GoogleCode';
+    } else {
+      return 'other';
     }
   }
 };
