@@ -2,7 +2,9 @@
 
 var fs = require('fs');
 var path = require('path');
+var util = require('util');
 var chalk = require('chalk');
+var moment = require('moment');
 
 const REPO_TYPE_GIT = 'git';
 const REPO_TYPE_HG = 'hg';
@@ -13,10 +15,12 @@ module.exports = class Project {
   constructor(filepath) {
     this.filepath = filepath;
     this.repoType = this.getRepoType(filepath);
+    this.stat = fs.statSync(this.filepath);
+    this.updatedAt = moment(this.stat.mtime).fromNow(true);
   }
 
   summary() {
-    return `${this.getRepoSymbol()} ${path.basename(this.filepath)}`;
+    return `${this.getRepoSymbol()} ${`${this.updatedAt}             `.substring(0, 13)} ${path.basename(this.filepath)}`;
   }
 
   getRepoSymbol() {
