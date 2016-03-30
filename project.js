@@ -22,17 +22,27 @@ module.exports = class Project {
   }
 
   summary() {
-    return `${this.getRepoSymbol()} ${`${this.remote}          `.substring(0, 10)} ${`${this.updatedAt}             `.substring(0, 13)} ${path.basename(this.filepath)}`;
+    return `${this.pad(this.getRepoTypeName(), 3)} ${this.pad(this.remote, 10)} ${this.pad(this.updatedAt, 13)} ${path.basename(this.filepath)}`;
   }
 
-  getRepoSymbol() {
+  pad(value, max) {
+    var styled = value;
+    var unstyled = chalk.stripColor(value);
+    var result = unstyled;
+    for (var i = 0; i < max && result.length < max; i++) {
+      result += ' ';
+    }
+    return styled + result.substring(unstyled.length);
+  }
+
+  getRepoTypeName() {
     switch (this.repoType) {
     case REPO_TYPE_GIT:
-      return chalk.red('G');
+      return chalk.red('Git');
     case REPO_TYPE_HG:
-      return chalk.gray('H');
+      return chalk.gray('Hg');
     case REPO_TYPE_SVN:
-      return chalk.blue('S');
+      return chalk.blue('Svn');
     default:
       return '-';
     }
