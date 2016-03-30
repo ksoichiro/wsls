@@ -1,0 +1,38 @@
+{
+  "name": "ws",
+  "version": "0.0.1",
+  "description": "Special 'ls' to list projects in your workspace.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ksoichiro/ws.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ksoichiro/ws/issues"
+  },
+  "main": "index.js",
+  "bin": {
+    "ws": "cli.js"
+  },
+  "author": {
+    "name": "Soichiro Kashima",
+    "email": "soichiro.kashima@gmail.com",
+    "url": "https://github.com/ksoichiro"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "fs-extra": "^0.26.7"
+  },
+  "devDependencies": {
+    "eslint": "^2.5.3"
+  },
+  "scripts": {
+    "test": "eslint ."
+  }
+}
