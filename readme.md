@@ -1,9 +1,9 @@
-# ws
+# wsls
 
 > Special 'ls' to list projects in your workspace.
 
-[![Build Status](https://travis-ci.org/ksoichiro/ws.svg?branch=master)](https://travis-ci.org/ksoichiro/ws)
-[![Build status](https://ci.appveyor.com/api/projects/status/r7df934xjle7sw97?svg=true)](https://ci.appveyor.com/project/ksoichiro/ws)
+[![Build Status](https://travis-ci.org/ksoichiro/wsls.svg?branch=master)](https://travis-ci.org/ksoichiro/wsls)
+[![Build status](https://ci.appveyor.com/api/projects/status/r7df934xjle7sw97?svg=true)](https://ci.appveyor.com/project/ksoichiro/wsls)
 
 Sometimes I want to check my old project but
 
@@ -17,15 +17,15 @@ This CLI tool is a solution for it.
 ## Install
 
 ```console
-$ git clone https://github.com/ksoichiro/ws
-$ cd ws
+$ git clone https://github.com/ksoichiro/wsls
+$ cd wsls
 $ npm link
 ```
 
 ## Usage
 
 ```console
-$ ws ~/workspace
+$ wsls ~/workspace
 G git-project
 H mercurial-project
 S subversion-project

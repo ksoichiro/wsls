@@ -1,18 +1,18 @@
 {
-  "name": "ws",
+  "name": "wsls",
   "version": "0.0.1",
   "description": "Special 'ls' to list projects in your workspace.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ksoichiro/ws.git"
+    "url": "https://github.com/ksoichiro/wsls.git"
   },
   "bugs": {
-    "url": "https://github.com/ksoichiro/ws/issues"
+    "url": "https://github.com/ksoichiro/wsls/issues"
   },
   "main": "index.js",
   "bin": {
-    "ws": "cli.js"
+    "wsls": "cli.js"
   },
   "author": {
     "name": "Soichiro Kashima",
