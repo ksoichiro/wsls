@@ -75,14 +75,14 @@ module.exports = class Project {
   setRemote() {
     this.remote = '-';
     if (this.repoType === REPO_TYPE_GIT) {
-      var config = gitConfig.sync(path.join(this.filepath, '.git/config'));
-      var origin = config['remote "origin"'];
+      let config = gitConfig.sync(path.join(this.filepath, '.git/config'));
+      let origin = config['remote "origin"'];
       if (origin) {
         this.remote = this.getRemote(origin.url);
       }
     } else if (this.repoType === REPO_TYPE_HG) {
-      var config = ini.parse(fs.readFileSync(path.join(this.filepath, '.hg/hgrc'), 'utf-8'));
-      var defaultUrl = config.paths['default'];
+      let config = ini.parse(fs.readFileSync(path.join(this.filepath, '.hg/hgrc'), 'utf-8'));
+      let defaultUrl = config.paths['default'];
       if (defaultUrl) {
         this.remote = this.getRemote(defaultUrl);
       }
