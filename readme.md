@@ -2,8 +2,10 @@
 
 > Special 'ls' to list projects in your workspace.
 
-[![Build Status](https://travis-ci.org/ksoichiro/wsls.svg?branch=master)](https://travis-ci.org/ksoichiro/wsls)
-[![Build status](https://ci.appveyor.com/api/projects/status/r7df934xjle7sw97?svg=true)](https://ci.appveyor.com/project/ksoichiro/wsls)
+[![Travis master](https://img.shields.io/travis/ksoichiro/wsls/master.svg?style=flat-square)]()
+[![AppVeyor master](https://img.shields.io/appveyor/ci/ksoichiro/wsls/master.svg?style=flat-square)]()
+[![npm](https://img.shields.io/npm/v/wsls.svg?style=flat-square)](https://www.npmjs.com/package/wsls)
+![npm](https://img.shields.io/npm/l/wsls.svg?style=flat-square)
 
 Sometimes I want to check my old project but
 
@@ -17,26 +19,24 @@ This CLI tool is a solution for it.
 ## Install
 
 ```console
-$ git clone https://github.com/ksoichiro/wsls
-$ cd wsls
-$ npm link
+$ npm install wsls
 ```
 
 ## Usage
 
 ```console
 $ wsls ~/workspace
-G git-project
-H mercurial-project
-S subversion-project
-- other-project
+Git GitHub     a few seconds git-project
+Hg  Bitbucket  a year        mercurial-project
+-   -          5 days        other-project
+Svn GoogleCode 10 months     subversion-project
 ```
 
 ## TODO
 
+- [x] Last update
+- [x] Get remote URL (Mainly git)
 - [ ] Get working copy status (dirty or not)
-- [ ] Last update
-- [ ] Get remote URL (Mainly git)
 - [ ] Main language (Possible?)
 
 ## License
