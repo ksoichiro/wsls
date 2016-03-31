@@ -2,8 +2,8 @@
 
 > Special 'ls' to list projects in your workspace.
 
-[![Travis master](https://img.shields.io/travis/ksoichiro/wsls/master.svg?style=flat-square)]()
-[![AppVeyor master](https://img.shields.io/appveyor/ci/ksoichiro/wsls/master.svg?style=flat-square)]()
+[![Travis master](https://img.shields.io/travis/ksoichiro/wsls/master.svg?style=flat-square)](https://travis-ci.org/ksoichiro/wsls)
+[![AppVeyor master](https://img.shields.io/appveyor/ci/ksoichiro/ws/master.svg?style=flat-square)](https://ci.appveyor.com/project/ksoichiro/ws)
 [![npm](https://img.shields.io/npm/v/wsls.svg?style=flat-square)](https://www.npmjs.com/package/wsls)
 ![npm](https://img.shields.io/npm/l/wsls.svg?style=flat-square)
 
