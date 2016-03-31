@@ -1,6 +1,6 @@
 import test from 'ava';
 import assert from 'assert';
-import { Ws } from '../src';
+import { Ws } from '../lib';
 import fs from 'fs';
 import path from 'path';
 var temp = require('temp').track();
