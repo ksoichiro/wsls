@@ -94,7 +94,8 @@ module.exports = class Project {
       return 'GitHub';
     } else if (-1 < url.indexOf('bitbucket.org')) {
       return 'Bitbucket';
-    } else if (-1 < url.indexOf('code.google.com')) {
+    } else if (-1 < url.indexOf('code.google.com')
+      || -1 < url.indexOf('googlecode.com')) {
       return 'GoogleCode';
     } else {
       return 'other';
