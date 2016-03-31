@@ -44,7 +44,7 @@
     "lib"
   ],
   "scripts": {
-    "preinstall": "npm run build",
+    "prepublish": "npm run build",
     "build": "babel src -d lib -s inline",
     "watch": "babel src -d lib -s inline -w",
     "test": "eslint ."
