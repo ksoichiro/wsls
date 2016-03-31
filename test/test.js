@@ -1,12 +1,22 @@
+'use strict';
+
 import test from 'ava';
 import assert from 'assert';
 import { Ws } from '../lib';
 import fs from 'fs';
 import path from 'path';
-var temp = require('temp').track();
+import temp from 'temp';
+
+test.before(() => {
+  temp.track();
+});
+
+test.afterEach(() => {
+  temp.cleanupSync();
+});
 
 test('1 Git repository', t => {
-  let tempDir = temp.mkdirSync('foo');
+  let tempDir = temp.mkdirSync('my-workspace');
   fs.mkdirSync(path.join(tempDir, 'bar'));
   fs.mkdirSync(path.join(tempDir, 'bar', '.git'));
   fs.writeFileSync(path.join(tempDir, 'bar', '.git', 'config'), `[remote "origin"]
