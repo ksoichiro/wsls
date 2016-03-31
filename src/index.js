@@ -1,4 +1,6 @@
 'use strict';
 
-module.exports.Ws = require('./ws');
-module.exports.Project = require('./project');
+import Ws from './ws';
+import Project from './project';
+
+export { Ws, Project };

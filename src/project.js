@@ -1,19 +1,19 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var chalk = require('chalk');
-var moment = require('moment');
-var gitConfig = require('git-config');
-var ini = require('ini');
-var SvnClient = require('svn-spawn');
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+import moment from 'moment';
+import gitConfig from 'git-config';
+import ini from 'ini';
+import SvnClient from 'svn-spawn';
 
 const REPO_TYPE_GIT = 'git';
 const REPO_TYPE_HG = 'hg';
 const REPO_TYPE_SVN = 'svn';
 const REPO_TYPE_NONE = 'none';
 
-module.exports = class Project {
+export default class Project {
   constructor(filepath) {
     this.filepath = filepath;
     this.repoType = this.getRepoType(filepath);
@@ -30,10 +30,10 @@ module.exports = class Project {
   }
 
   pad(value, max) {
-    var styled = value;
-    var unstyled = chalk.stripColor(value);
-    var result = unstyled;
-    for (var i = 0; i < max && result.length < max; i++) {
+    let styled = value;
+    let unstyled = chalk.stripColor(value);
+    let result = unstyled;
+    for (let i = 0; i < max && result.length < max; i++) {
       result += ' ';
     }
     return styled + result.substring(unstyled.length);
@@ -79,7 +79,7 @@ module.exports = class Project {
   setRemote() {
     this.remote = '-';
     let that = this;
-    return new Promise(function(resolve) {
+    return new Promise((resolve) => {
       if (that.repoType === REPO_TYPE_GIT) {
         let config = gitConfig.sync(path.join(that.filepath, '.git/config'));
         let origin = config['remote "origin"'];
@@ -95,7 +95,7 @@ module.exports = class Project {
         }
         return resolve();
       } else if (that.repoType === REPO_TYPE_SVN) {
-        that.getSvnInfo().then(function(data) {
+        that.getSvnInfo().then((data) => {
           that.remote = that.getRemote(data.url);
           return resolve();
         });
@@ -120,7 +120,7 @@ module.exports = class Project {
 
   getSvnInfo() {
     let that = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       let client = new SvnClient({ cwd: that.filepath });
       client.getInfo((err, data) => {
         if (err) {
@@ -130,4 +130,4 @@ module.exports = class Project {
       });
     });
   }
-};
+}

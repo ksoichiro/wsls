@@ -1,11 +1,11 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var Project = require('./project');
-var async = require('async');
+import fs from 'fs';
+import path from 'path';
+import Project from './project';
+import async from 'async';
 
-module.exports = class Ws {
+export default class Ws {
   constructor(cwd) {
     this.cwd = cwd;
     this.result = [];
@@ -13,23 +13,23 @@ module.exports = class Ws {
 
   retrieve() {
     let that = this;
-    var files = fs.readdirSync(this.cwd).filter(function(filename) {
-      var dir = path.join(that.cwd, filename);
+    let files = fs.readdirSync(this.cwd).filter((filename) => {
+      let dir = path.join(that.cwd, filename);
       return fs.statSync(dir).isDirectory();
     });
 
-    return new Promise(function(resolve) {
-      async.each(files, function(filename, cb) {
+    return new Promise((resolve) => {
+      async.each(files, (filename, cb) => {
         let project = new Project(path.join(that.cwd, filename));
-        project.retrieve().then(function() {
+        project.retrieve().then(() => {
           that.result.push(project);
           cb();
-        }).catch(function(err) {
+        }).catch((err) => {
           cb(err);
         });
-      }, function done() {
+      }, () => {
         return resolve();
       });
     });
   }
-};
+}
