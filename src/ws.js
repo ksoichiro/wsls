@@ -18,7 +18,7 @@ module.exports = class Ws {
       return fs.statSync(dir).isDirectory();
     });
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
       async.each(files, function(filename, cb) {
         let project = new Project(path.join(that.cwd, filename));
         project.retrieve().then(function() {
