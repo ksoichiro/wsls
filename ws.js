@@ -13,21 +13,20 @@ module.exports = class Ws {
 
   retrieve() {
     let that = this;
+    var files = fs.readdirSync(this.cwd).filter(function(filename) {
+      var dir = path.join(that.cwd, filename);
+      return fs.statSync(dir).isDirectory();
+    });
+
     return new Promise(function(resolve, reject) {
-      var files = fs.readdirSync(that.cwd);
       async.each(files, function(filename, cb) {
-        var dir = path.join(that.cwd, filename);
-        if (fs.statSync(dir).isDirectory()) {
-          let project = new Project(path.join(that.cwd, filename));
-          project.retrieve().then(function() {
-            that.result.push(project);
-            cb();
-          }).catch(function(err) {
-            cb(err);
-          });
-        } else {
+        let project = new Project(path.join(that.cwd, filename));
+        project.retrieve().then(function() {
+          that.result.push(project);
           cb();
-        }
+        }).catch(function(err) {
+          cb(err);
+        });
       }, function done() {
         return resolve();
       });
