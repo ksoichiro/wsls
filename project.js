@@ -6,6 +6,7 @@ var chalk = require('chalk');
 var moment = require('moment');
 var gitConfig = require('git-config');
 var ini = require('ini');
+var SvnClient = require('svn-spawn');
 
 const REPO_TYPE_GIT = 'git';
 const REPO_TYPE_HG = 'hg';
@@ -18,7 +19,10 @@ module.exports = class Project {
     this.repoType = this.getRepoType(filepath);
     this.stat = fs.statSync(this.filepath);
     this.updatedAt = moment(this.stat.mtime).fromNow(true);
-    this.setRemote();
+  }
+
+  retrieve() {
+    return this.setRemote();
   }
 
   summary() {
@@ -74,19 +78,31 @@ module.exports = class Project {
 
   setRemote() {
     this.remote = '-';
-    if (this.repoType === REPO_TYPE_GIT) {
-      let config = gitConfig.sync(path.join(this.filepath, '.git/config'));
-      let origin = config['remote "origin"'];
-      if (origin) {
-        this.remote = this.getRemote(origin.url);
+    let that = this;
+    return new Promise(function(resolve) {
+      if (that.repoType === REPO_TYPE_GIT) {
+        let config = gitConfig.sync(path.join(that.filepath, '.git/config'));
+        let origin = config['remote "origin"'];
+        if (origin) {
+          that.remote = that.getRemote(origin.url);
+        }
+        return resolve();
+      } else if (that.repoType === REPO_TYPE_HG) {
+        let config = ini.parse(fs.readFileSync(path.join(that.filepath, '.hg/hgrc'), 'utf-8'));
+        let defaultUrl = config.paths['default'];
+        if (defaultUrl) {
+          that.remote = that.getRemote(defaultUrl);
+        }
+        return resolve();
+      } else if (that.repoType === REPO_TYPE_SVN) {
+        that.getSvnInfo().then(function(data) {
+          that.remote = that.getRemote(data.url);
+          return resolve();
+        });
+      } else {
+        return resolve();
       }
-    } else if (this.repoType === REPO_TYPE_HG) {
-      let config = ini.parse(fs.readFileSync(path.join(this.filepath, '.hg/hgrc'), 'utf-8'));
-      let defaultUrl = config.paths['default'];
-      if (defaultUrl) {
-        this.remote = this.getRemote(defaultUrl);
-      }
-    }
+    });
   }
 
   getRemote(url) {
@@ -100,5 +116,18 @@ module.exports = class Project {
     } else {
       return 'other';
     }
+  }
+
+  getSvnInfo() {
+    let that = this;
+    return new Promise(function(resolve, reject) {
+      let client = new SvnClient({ cwd: that.filepath });
+      client.getInfo((err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
   }
 };
