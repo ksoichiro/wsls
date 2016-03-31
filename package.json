@@ -1,6 +1,6 @@
 {
   "name": "wsls",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Special 'ls' to list projects in your workspace.",
   "license": "MIT",
   "repository": {
