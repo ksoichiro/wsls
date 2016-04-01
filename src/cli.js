@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-import path from 'path';
+import fs from 'fs';
 import { Ws } from './';
 
-let cwd = (2 < process.argv.length && process.argv[2]) || path.dirname(__dirname);
+let cwd = (2 < process.argv.length && process.argv[2]) || fs.realpathSync('./');
 
 let workspace = new Ws(cwd);
 workspace.retrieve().then(function() {
